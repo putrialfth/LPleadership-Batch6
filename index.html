@@ -317,7 +317,7 @@
 <nav class="nav">
   <div class="nav-inner">
     <div class="logo"><img src="mbc-logo-white.png" alt="MBC Hamasah Logo" class="logo-img"><div>MBC HAMASAH<span>Muslim Bisnis Coaching</span></div></div>
-    <a class="btn small" href="https://helascorp.com/form-m1t/cs-mbc" target="_blank" rel="noopener">Daftar Sekarang</a>
+    <a class="btn small btn-register" href="#" target="_blank" rel="noopener">Daftar Sekarang</a>
   </div>
 </nav>
 
@@ -329,7 +329,7 @@
       <h1>Strategi Boleh Matang, <em>Tapi Tanpa Eksekusi, Tetap Nol.</em></h1>
       <p class="lede">3 hari intensif bersama <b>Coach Fitra Jaya Saleh</b> untuk membangun kepemimpinan yang mampu mengubah strategi bisnis Anda menjadi tindakan nyata — <b>menuju target 100% omzet.</b></p>
       <div class="hero-cta-row">
-        <a class="btn" href="https://helascorp.com/form-m1t/cs-mbc" target="_blank" rel="noopener">Amankan Kursi Saya →</a>
+        <a class="btn btn-register" href="#" target="_blank" rel="noopener">Amankan Kursi Saya →</a>
         <a class="btn ghost" href="#materi">Lihat Materi Workshop</a>
       </div>
       <div class="hero-meta">
@@ -552,10 +552,10 @@
         <div class="old">Rp 3.000.000</div>
         <div class="new">Rp 2.500.000</div>
         <div class="unit">/ Peserta (Single)</div>
-        <a class="btn" href="https://helascorp.com/form-m1t/cs-mbc" target="_blank" rel="noopener">Daftar Sekarang →</a>
+        <a class="btn btn-register" href="#" target="_blank" rel="noopener">Daftar Sekarang →</a>
         <div class="contacts">
-          <div class="c">Linda <b>0856 1490 495</b></div>
-          <div class="c">Yasmin <b>0882 2881 4769</b></div>
+          <div class="c"><a href="https://wa.me/628561490495?text=Halo%20Linda%2C%20saya%20ingin%20mendaftar%20Workshop%20Leadership%20Batch%206" target="_blank" rel="noopener" style="display:flex;justify-content:space-between;width:100%;color:inherit;">Linda <b>0856 1490 495</b></a></div>
+          <div class="c"><a href="https://wa.me/6288228814769?text=Halo%20Yasmin%2C%20saya%20ingin%20mendaftar%20Workshop%20Leadership%20Batch%206" target="_blank" rel="noopener" style="display:flex;justify-content:space-between;width:100%;color:inherit;">Yasmin <b>0882 2881 4769</b></a></div>
         </div>
       </div>
     </div>
@@ -569,9 +569,43 @@
   </div>
 </footer>
 
-<div class="float-cta"><a class="btn" href="https://helascorp.com/form-m1t/cs-mbc" target="_blank" rel="noopener">Daftar Sekarang — Rp 2.500.000 →</a></div>
+<div class="float-cta"><a class="btn btn-register" href="#" target="_blank" rel="noopener">Daftar Sekarang — Rp 2.500.000 →</a></div>
 
 <script>
+  // Rotator WhatsApp CS (Linda & Yasmin)
+  const csContacts = [
+    { name: "Linda", phone: "628561490495" },
+    { name: "Yasmin", phone: "6288228814769" }
+  ];
+
+  function getRotatedWaUrl() {
+    let index = parseInt(localStorage.getItem('cs_wa_index') || '0', 10);
+    if (isNaN(index) || index < 0 || index >= csContacts.length) {
+      index = 0;
+    }
+    const cs = csContacts[index];
+    localStorage.setItem('cs_wa_index', (index + 1) % csContacts.length);
+    const message = encodeURIComponent(`Halo Kak ${cs.name}, saya ingin mendaftar Workshop Leadership for Excellent Execution (Batch 6).`);
+    return `https://wa.me/${cs.phone}?text=${message}`;
+  }
+
+  function initWaRotator() {
+    const regButtons = document.querySelectorAll('.btn-register');
+    regButtons.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const waUrl = getRotatedWaUrl();
+        window.open(waUrl, '_blank', 'noopener,noreferrer');
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initWaRotator);
+  } else {
+    initWaRotator();
+  }
+
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('is-visible'); io.unobserve(e.target); } });
   },{threshold:0.12});
